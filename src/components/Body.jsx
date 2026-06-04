@@ -1,14 +1,14 @@
-import react from 'react'
+
 import ProductCard from './ProductCard.jsx';
+import '../styles/Body.css';
+import { products } from "../constants/constant.js"
 
 const Body = () => {
   return (
     <main className="product-cards">
-      <ProductCard title="Shoe" description="Comfy shoes for your journey" price="$102" />
-
-      <ProductCard title="Shirt" description="Comfy shirts for your journey" price="$112" />
-
-      <ProductCard title="Pant" description="Comfy pant for your journey" price="$92" />
+      {products.map((product) => (
+        <ProductCard data={product} key={product.id} />
+      ))}
     </main>
   );
 };
