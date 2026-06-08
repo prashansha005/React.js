@@ -1,28 +1,42 @@
-
+import {useEffect, useState} from 'react';
 import ProductCard from './ProductCard.jsx';
 import '../styles/Body.css';
-import { products } from "../constants/constant.js";
-import { useState} from 'react';
+// import { products } from "../constants/constant.js";
+// import { useState} from 'react';
 
 const Body = () => {
-  const [productList,setProductList] = useState(products);
-  const[element, setElement] = useState(4);
+  // const [productList,setProductList] = useState(products);
+  const [productList, setProductList]=useState([]);
+  useEffect(()=>{
+    fetchData();
+  },[]);
+  // const[element, setElement] = useState(4);
+
+  async function fetchData(){
+    const data = await fetch('https://fakestoreapi.com/products');
+    const jsonData = await data.json();
+    console.log(jsonData);
+    setProductList(jsonData);
+  }
+
+  
 
   function handleTopRatedProducts(){
     const topRatedProducts = products.filter((product) => product.rating.rate > 4);
     setProductList(topRatedProducts);
   }
 
-  function handleAdd() {
-    setElement(element + 1);
-  }
+  // function handleAdd() {
+  //   setElement(element + 1);
+  // }
 
   return (
     <main className="product-cards">
+      <input type="text"/>
       <div>
         <button onClick={handleTopRatedProducts}>Top Rated Products</button>
-        <button onClick={handleAdd}>Add</button>
-        <h2>{element}</h2>
+        {/* <button onClick={handleAdd}>Add</button>
+        <h2>{element}</h2> */}
       </div>
       {productList.map((product) => (
         <ProductCard data={product} key={product.id} />
