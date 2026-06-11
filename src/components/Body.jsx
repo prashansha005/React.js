@@ -3,6 +3,7 @@ import ProductCard from './ProductCard.jsx';
 import '../styles/Body.css';
 // import { products } from "../constants/constant.js";
 // import { useState} from 'react';
+import ProductCardSkeleton from './ProductCardSkeleton.jsx'
 
 const Body = () => {
   // const [productList,setProductList] = useState(products);
@@ -32,15 +33,12 @@ const Body = () => {
 
   return (
     <main className="product-cards">
-      <input type="text"/>
       <div>
         <button onClick={handleTopRatedProducts}>Top Rated Products</button>
-        {/* <button onClick={handleAdd}>Add</button>
-        <h2>{element}</h2> */}
       </div>
-      {productList.map((product) => (
-        <ProductCard data={product} key={product.id} />
-      ))}
+      {productList.length === 0
+        ? Array.from({ length: 4 }).map((_, index) => <ProductCardSkeleton key={index} />)
+        : productList.map((product) => <ProductCard data={product} key={product.id} />)}
     </main>
   );
 };
